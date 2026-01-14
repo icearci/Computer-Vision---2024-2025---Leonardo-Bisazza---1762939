@@ -59,9 +59,3 @@ Assicurati di avere sul tuo PC:
 * **Dataset:** [NYU Depth V2](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html)
 * **Key Paper:** Thys, S., Van Ranst, W., & Goedemé, T. (2019). "Fooling automated surveillance cameras: adversarial patches to attack person detection".
 
----
-
-## 🔗 Credits & References
-* Base Model: [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2)
-* Dataset: [NYU Depth V2](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html)
-* [cite_start]Inspiration: "Fooling automated surveillance cameras: adversarial patches to attack person detection" (Thys et al., 2019)[cite: 24].
