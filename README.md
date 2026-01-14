@@ -9,58 +9,55 @@
 ---
 
 ## 📖 Descrizione del Progetto
-[cite_start]Questo progetto esplora la vulnerabilità delle reti neurali di stima della profondità monoculare (**Monocular Depth Estimation - MDE**) agli attacchi avversari fisici[cite: 3, 5, 8].
-[cite_start]Ispirandosi al concetto di "Invisibility Cloak" per i rilevatori di oggetti (YOLO), abbiamo adattato l'attacco per colpire **Depth Anything V2**, una delle architetture MDE più avanzate[cite: 8, 13].
+Questo progetto analizza la vulnerabilità dei modelli di stima della profondità monoculare (Monocular Depth Estimation) agli attacchi avversari.
+Basandosi sulle specifiche del "Project 8", abbiamo adattato il concetto di "Invisibility Cloak" (originariamente per object detection) per colpire l'architettura **Depth Anything V2**.
 
-[cite_start]L'obiettivo è generare una "patch avversaria" stampabile che, applicata su un oggetto reale (es. un frigorifero), inganni la rete facendole credere che l'oggetto sia molto più lontano (effetto "sfondamento") o invisibile[cite: 13, 14].
-
+L'obiettivo principale è generare patch avversarie fisiche che, applicate su oggetti target (es. frigoriferi, TV), manipolino la predizione della profondità, creando effetti di "sfondamento" (aumento della distanza percepita) o occultamento.
 ## 🚀 Funzionalità Principali
-* [cite_start]**Training Baseline:** Fine-tuning del modello *Depth Anything V2 (Small)* sul dataset NYU Depth V2[cite: 12, 18].
-* [cite_start]**Digital Attack:** Generazione di patch avversarie ottimizzate tramite EOT (Expectation-Over-Transformation) per robustezza a rotazione e scala[cite: 19].
-* [cite_start]**Physical Validation:** Pipeline di test per valutare l'efficacia delle patch stampate nel mondo reale[cite: 21].
-* **Portable Notebook:** Il codice è ottimizzato per Google Colab e non richiede path assoluti o mount di Google Drive.
+* **Baseline Training:** Addestramento/Fine-tuning del modello sul dataset **NYU Depth V2**.
+* **Digital Attack:** Generazione di patch avversarie robuste a trasformazioni (EOT).
+* **Physical Validation:** Pipeline per testare l'efficacia delle patch stampate in scene reali (cucina, soggiorno) con diverse condizioni di luce.
+* **Portable Code:** Notebook ottimizzato per Google Colab che gestisce automaticamente il download dei dati e dei pesi, senza dipendenze rigide da Google Drive.
 
 ---
 
 ## 🛠️ Istruzioni per l'Esecuzione
 
-Il notebook è progettato per essere **autoconsistente**. Non richiede di montare il Google Drive dell'utente. I file necessari verranno richiesti interattivamente durante l'esecuzione.
+Il notebook è progettato per essere **autoconsistente**. I file necessari verranno richiesti interattivamente durante l'esecuzione.
 
 ### Prerequisiti
-Per eseguire il progetto, avrai bisogno di due file da tenere a portata di mano sul tuo PC:
-1.  `kaggle.json`: Il token API di Kaggle per scaricare il dataset NYUv2.
-2.  `latest.pth`: Il checkpoint del modello addestrato (disponibile nella sezione Releases o fornito con il progetto). *Se non lo hai, il notebook scaricherà automaticamente il modello base.*
+Assicurati di avere sul tuo PC:
+1.  `kaggle.json`: Token API per scaricare il dataset NYUv2.
+2.  `latest.pth`: Checkpoint del modello addestrato (opzionale, se vuoi usare i nostri pesi).
 
 ### Passaggi
 1.  Apri il notebook `vision_project_Depth_Anything_V2.ipynb` in **Google Colab**.
-2.  Esegui le celle in sequenza. Il notebook gestirà automaticamente l'installazione delle dipendenze.
-3.  **Caricamento Kaggle Token:** Quando richiesto dalla cella di download dataset, carica il file `kaggle.json` dal tuo computer.
-4.  **Caricamento Checkpoint:** Nella sezione di caricamento modello, se desideri usare i pesi addestrati da noi, seleziona l'opzione "Carica Manualmente" e carica il file `latest.pth`. Altrimenti, puoi scegliere di scaricare il modello base pre-trained.
+2.  Esegui tutte le celle in sequenza.
+3.  **Caricamento Kaggle Token:** Quando richiesto, carica il file `kaggle.json`.
+4.  **Caricamento Checkpoint:**
+    * Se possiedi il file `latest.pth`, seleziona l'opzione di caricamento manuale quando richiesto.
+    * Altrimenti, il sistema scaricherà automaticamente il modello base pre-trained per permettere l'inferenza.
 
 ---
 
 ## 📂 Struttura del Notebook
 
-Il progetto segue un flusso logico sequenziale:
-
-1.  **Environment Configuration:** Definizione variabili globali e preparazione ambiente.
-2.  **Dataset Download:** Scaricamento automatico di NYU Depth V2 tramite API Kaggle.
-3.  **Training Loop:** (Opzionale) Codice per il fine-tuning del modello o per riprendere il training. Salva i pesi nella cartella locale `./checkpoints`.
-4.  **Adversarial Patch Generation:** Algoritmo di ottimizzazione per creare la patch digitale.
-5.  **Digital Validation:** Test dell'attacco su immagini del dataset di validazione.
-6.  **Physical Validation (Real World):**
-    * Questa sezione permette di caricare foto scattate dal vivo (es. `con_patch.jpg` e `senza_patch.jpg`).
-    * Il modello eseguirà l'inferenza e mostrerà il confronto delle mappe di profondità per valutare il successo dell'attacco fisico.
+1.  **Environment Configuration:** Setup variabili e clonazione repository.
+2.  **Dataset Download:** Recupero dati NYU Depth V2.
+3.  **Training Loop:** Codice per il training (salvataggio pesi in `./checkpoints`).
+4.  **Adversarial Patch Generation:** Ottimizzazione della patch digitale.
+5.  **Digital Validation:** Valutazione quantitativa sul dataset di test.
+6.  **Physical Validation:**
+    * Caricamento foto reali (con/senza patch).
+    * Inferenza e visualizzazione Side-by-Side delle mappe di profondità.
 
 ---
 
-## 📊 Risultati e Conclusioni
-
-Il progetto ha evidenziato una significativa differenza tra il dominio digitale e quello fisico:
-* **In Silico (Digitale):** L'attacco ha successo quasi totale, creando "buchi" di profondità nell'immagine.
-* **In Vivo (Fisico):** L'attacco è fortemente mitigato da due fattori:
-    1.  **ISP della Fotocamera:** I filtri di denoise rimuovono il rumore avversario.
-    2.  **Robustezza Contestuale:** La rete *Depth Anything* usa la geometria globale della stanza (pavimento, pareti) per correggere le anomalie locali introdotte dalla patch.
+## 🔗 Credits & References
+* **Project Reference:** Project 8 - Computer Vision Course, Sapienza University.
+* **Base Model:** [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2)
+* **Dataset:** [NYU Depth V2](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html)
+* **Key Paper:** Thys, S., Van Ranst, W., & Goedemé, T. (2019). "Fooling automated surveillance cameras: adversarial patches to attack person detection".
 
 ---
 
