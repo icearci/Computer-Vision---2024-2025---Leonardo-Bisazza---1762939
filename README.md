@@ -3,7 +3,6 @@
 ### Adversarial Attacks on Monocular Depth Estimation
 
 **Corso:** Computer Vision (Prof. Irene Amerini) - Sapienza Università di Roma  
-**Anno:** Fall 2025  
 **Studenti:** Leonardo Bisazza 1762939
 
 ---
