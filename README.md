@@ -1,58 +1,72 @@
 # Computer-Vision---2024-2025---Leonardo-Bisazza---1762939
+
 # Project 8: Invisibility Cloak for Depth Deception
+
 ### Adversarial Attacks on Monocular Depth Estimation
 
-**Corso:** Computer Vision (Prof. Irene Amerini) - Sapienza Università di Roma  
-**Studenti:** Leonardo Bisazza 1762939
+**Course:** Computer Vision (Prof. Irene Amerini) - Sapienza University of Rome
+
+**Student:** Leonardo Bisazza 1762939
 
 ---
 
-## 📖 Descrizione del Progetto
-Questo progetto analizza la vulnerabilità dei modelli di stima della profondità monoculare (Monocular Depth Estimation) agli attacchi avversari.
-Basandosi sulle specifiche del "Project 8", abbiamo adattato il concetto di "Invisibility Cloak" (originariamente per object detection) per colpire l'architettura **Depth Anything V2**.
+## 📖 Project Description
 
-L'obiettivo principale è generare patch avversarie fisiche che, applicate su oggetti target (es. frigoriferi, TV), manipolino la predizione della profondità, creando effetti di "sfondamento" (aumento della distanza percepita) o occultamento.
-## 🚀 Funzionalità Principali
-* **Baseline Training:** Addestramento/Fine-tuning del modello sul dataset **NYU Depth V2**.
-* **Digital Attack:** Generazione di patch avversarie robuste a trasformazioni (EOT).
-* **Physical Validation:** Pipeline per testare l'efficacia delle patch stampate in scene reali (cucina, soggiorno) con diverse condizioni di luce.
-* **Portable Code:** Notebook ottimizzato per Google Colab che gestisce automaticamente il download dei dati e dei pesi, senza dipendenze rigide da Google Drive.
+This project investigates the vulnerability of Monocular Depth Estimation models to adversarial attacks.
+Based on the "Project 8" specifications, we adapted the **"Invisibility Cloak"** concept—originally designed for 2D object detection—to target the **Depth Anything V2** architecture.
 
----
+The primary objective is to generate **physical adversarial patches** that, when applied to target objects (e.g., refrigerators, TVs), manipulate depth predictions. These patches create "depth punctures" (increasing perceived distance) or full concealment effects, effectively making objects "invisible" to the geometric reconstruction of the model.
 
-## 🛠️ Istruzioni per l'Esecuzione
+## 🚀 Key Features
 
-Il notebook è progettato per essere **autoconsistente**. I file necessari verranno richiesti interattivamente durante l'esecuzione.
-
-### Prerequisiti
-Assicurati di avere sul tuo PC:
-1.  `kaggle.json`: Token API per scaricare il dataset NYUv2.
-2.  `latest.pth`: Checkpoint del modello addestrato (opzionale, se vuoi usare i nostri pesi).
-
-### Passaggi
-1.  Apri il notebook `vision_project_Depth_Anything_V2.ipynb` in **Google Colab**.
-2.  Esegui tutte le celle in sequenza.
-3.  **Caricamento Kaggle Token:** Quando richiesto, carica il file `kaggle.json`.
-4.  **Caricamento Checkpoint:**
-    * Se possiedi il file `latest.pth`, seleziona l'opzione di caricamento manuale quando richiesto.
-    * Altrimenti, il sistema scaricherà automaticamente il modello base pre-trained per permettere l'inferenza.
+* **Baseline Training:** Fine-tuning and adaptation of the model on the **NYU Depth V2** dataset.
+* **Digital Attack:** Generation of adversarial patches robust to transformations using **Expectation-Over-Transformation (EOT)**.
+* **Physical Validation:** A complete pipeline to test printed patches in real-world scenes (kitchen, living room) under varying lighting conditions.
+* **Portable Code:** A self-contained notebook optimized for Google Colab, featuring automated data and weight management without rigid dependencies on Google Drive.
 
 ---
 
-## 📂 Struttura del Notebook
+## 🛠️ Execution Instructions
 
-1.  **Environment Configuration:** Setup variabili e clonazione repository.
-2.  **Dataset Download:** Recupero dati NYU Depth V2.
-3.  **Training Loop:** Codice per il training (salvataggio pesi in `./checkpoints`).
-4.  **Adversarial Patch Generation:** Ottimizzazione della patch digitale.
-5.  **Digital Validation:** Valutazione quantitativa sul dataset di test.
-6.  **Physical Validation:**
-    * Caricamento foto reali (con/senza patch).
-    * Inferenza e visualizzazione Side-by-Side delle mappe di profondità.
+The notebook is designed to be **self-consistent**. Required files will be requested interactively during execution.
+
+### Prerequisites
+
+Ensure you have the following files on your local machine:
+
+1. `kaggle.json`: API Token required to download the NYUv2 dataset.
+2. `latest.pth`: Trained model checkpoint (optional, if you wish to use our weights).
+
+### Steps
+
+1. Open the notebook `vision_project_Depth_Anything_V2.ipynb` in **Google Colab**.
+2. Execute all cells in sequence.
+3. **Kaggle Token Upload:** When prompted, upload your `kaggle.json` file.
+4. **Checkpoint Loading:**
+* If you have the `latest.pth` file, select the manual upload option when prompted.
+* Otherwise, the system will automatically download the pre-trained base model to allow for inference.
+
+
+
+---
+
+## 📂 Notebook Structure
+
+1. **Environment Configuration:** Variable setup and repository cloning.
+2. **Dataset Download:** Retrieval of the NYU Depth V2 data.
+3. **Training Loop:** Core training code (checkpoints saved to `./checkpoints`).
+4. **Adversarial Patch Generation:** Optimization of the digital adversarial pattern.
+5. **Digital Validation:** Quantitative evaluation on the test dataset.
+6. **Physical Validation:**
+* Uploading real-world photos (with/without patches).
+* Inference and side-by-side visualization of the predicted depth maps.
+
+
 
 ---
 
 ## 🔗 Credits & References
+
 * **Project Reference:** Project 8 - Computer Vision Course, Sapienza University.
 * **Base Model:** [Depth Anything V2](https://github.com/DepthAnything/Depth-Anything-V2)
 * **Dataset:** [NYU Depth V2](https://cs.nyu.edu/~silberman/datasets/nyu_depth_v2.html)
